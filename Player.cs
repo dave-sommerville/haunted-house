@@ -1,40 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Haunted_House
+﻿namespace Haunted_House
 {
     public class Player
     {
         public string Name {  get; set; }
-        public int Shards { get; set; }
-        public string[] Inventory { get; set; }
+        public Items[] Inventory { get; set; }
         public int Sanity { get; set; }
-        public Player(string name, int shards, string[] inventory, int sanity)
+        public int RelicCount { get; set; }
+        public Player(string name, Items[] inventory, int sanity, int relicCount)
         {
             Name = name;
-            Shards = shards;
             Inventory = inventory;
             Sanity = sanity;
+            RelicCount = relicCount;
         }
-        public void SetName()
+
+        public int PrintInventory()
         {
+            while (true) 
+            { 
+                int intDecision;
+                string decision = Console.ReadLine();
 
+                if (int.TryParse(decision, out intDecision))
+                {
+                    if (intDecision >= 0 && intDecision <= 10)
+
+                    {
+                        return intDecision;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter a number between 1 - 2");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("That is an invalid character.");
+                }
+            }
         }
-        public void ShardManagement()
+        public bool UseItem(int selectedItem, Rooms chosenRoom)
         {
-
+            if (Inventory[selectedItem] != null)
+            {
+                int key = Inventory[selectedItem].KeyID;
+                int room = chosenRoom.KeyCode;
+                if (key == room)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            } else
+            {
+                return false;
+            }
         }
-        public void InventoryManagement()
-        {
-
-        }
-        public void SanityManagement()
-        {
-
-        }
-
     }
 }

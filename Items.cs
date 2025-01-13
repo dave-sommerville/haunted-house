@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Haunted_House
+﻿namespace Haunted_House
 {
-    internal class Items
+    public class Items
     {
         public string Name {  get; set; }
-        public string Description { get; set; }
-        public bool IsKey { get; set; }
+        public string UseItemString { get; set; }
+        public int KeyID { get; set; }
+        public bool IsRelic { get; set; }
 
-        public Items(string name, string description, bool iskey)
+        public Items(string name, string useItemString, int keyID, bool isRelic)
         {
             Name = name;
-            Description = description;
-            IsKey = iskey;
+            UseItemString = useItemString;
+            KeyID = keyID;
+            IsRelic = isRelic;
         }
-        public void DescribeItem()
-        {
 
-        }
-        public void OpenSecret()
-        {
-
-        }
     }
 }

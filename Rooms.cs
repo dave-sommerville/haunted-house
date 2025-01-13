@@ -1,36 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.Design;
 
 namespace Haunted_House
 {
-    internal class Rooms
+    public class Rooms
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public string[] Contents { get; set; }
-        public bool HasSecret { get; set; }
-        public string SecretRoom { get; set; } //Only for three rooms, leave rest null
+        public bool IsComplete { get; set; }
+        public int KeyCode { get; set; }
+        public Rooms SecretRoom { get; set; }
 
-        public Rooms(string name, string description, string[] contents, bool hasSecret, string secretRoom)
+        public Rooms(string name, string description, string[] contents, bool isComplete, int keyCode, Rooms secretRoom)
         {
             Name = name;
             Description = description;
             Contents = contents;
-            HasSecret = hasSecret;
+            IsComplete = isComplete;
+            KeyCode = keyCode;
             SecretRoom = secretRoom;
         }
         public void DescribeRoom()
         {
-
+            Console.WriteLine($"You make it to the {Name}.\n{Description}");
         }
-        public void Search()
+
+        public Player Search(Dictionary<string, Items> itemsList, Player player)
         {
-
+            if (Contents != null)
+            { 
+                for (int i = 0; i < Contents.Length; i++)
+                {
+                    string itemName = Contents[i];
+                    Items item = itemsList[itemName];
+                    for (int j = 0; j < player.Inventory.Length; j++)
+                    {
+                        if (player.Inventory[j] != null)
+                        {
+                            continue;
+                        } else if (player.Inventory[j] == null) {
+                            player.Inventory[j] = item;
+                            Console.WriteLine($"{item.Name} added to player inventory");
+                            if (item.IsRelic)
+                            {
+                                player.RelicCount++;
+                                if (player.RelicCount >= 5)
+                                {
+                                    Console.WriteLine($"Great job, {player.Name}! You have bravely located all my relics and at last I am a peace.");
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+                Contents = null;
+            } else if (Contents == null){
+                Console.WriteLine("Nothing to be found here!");
+            }
+            return player;
         }
+
     }
 
 }
