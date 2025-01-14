@@ -3,7 +3,9 @@
     public class Program
     {
         static void Main(string[] args)
-        {
+        {                          //  In retrospect, I think room should be a class with subclasses for rooms with secrets. This would open up more 
+                                   //   interaction with ghosts (you could have haunted rooms and secret rooms with different effects)
+                                   //   I was just too far in executing the below method to turn back at the time
                  // DECLARATIONS 
                 //  SECRET ROOMS 
             Room ballRoomBonus = new Room("Painting in the Ballroom", "You see the painting is a little crooked.\nYou pull it away from the wall, revealing a wall safe.\n" +
@@ -97,7 +99,7 @@
             const int PLAYER_SANITY = 100;
             const int HAUNT_CHANCE = 50; // out of 100
             //      INTRODUCTION
-            Console.WriteLine("Might we start with your name? (enter name in console)");
+            Console.WriteLine("Might we start with your name? (enter name in console)");    // Player name could be integrated more into game play 
             string playerName = Console.ReadLine();
             Player player = new Player(playerName, new Item[10], PLAYER_SANITY, 0, true);
             Console.WriteLine($"Hello, {player.Name}\n");
@@ -114,9 +116,9 @@
             //      MAIN MENU
             while (player.GameInProgress)
             {
-                Random rand = new Random();
-                int choice = PrintMenu();
-                Room chosenRoom = house[choice - 1];
+                Random rand = new Random(); //  I would like more complex ghosts encounters, likely creating a ghost class
+                int choice = PrintMenu();   //  I think there could be a player interaction instead of simply a chance encounter 
+                Room chosenRoom = house[choice - 1];    //  As well ghosts should have dialogue options
                 if (rand.Next(100) > HAUNT_CHANCE) {
                     Haunt(player);
                 }
