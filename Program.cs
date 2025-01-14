@@ -27,7 +27,7 @@
                     new string[] { "Book" }, 0, null),
                 new Rooms("Kitchen", "The kitchen is a stark contrast to the rest of the house,\nwith rusted pots hanging from the ceiling and a sink filled with stagnant water.\n" + 
                     "The once-grand oven stands cold, its door slightly ajar,\nas if something unseen has recently emerged.\nKnives hang on the wall, some missing," + 
-                    "leaving only their outlines,\n and a faint metallic smell lingers in the air.\n\n\n" +
+                    "leaving only their outlines,\nand a faint metallic smell lingers in the air.\n\n\n" +
                     "1) Search Room      2) Leave Room", 
                     new string[] { "Herring" }, 0, null),
                 new Rooms("Dining Room", "The dining room is dominated by a long mahogany table set for a feast that never happened.\nTarnished silverware glints under the flicker of a lone candelabra" + 
@@ -102,10 +102,10 @@
             Player player = new Player(playerName, new Items[10], PLAYER_SANITY, 0, true);
             Console.WriteLine($"Hello, {player.Name}\n");
             Console.WriteLine();
-            Console.WriteLine("I know why you have come, and perhaps I welcome it.\nI have haunted this house for centuries and" + 
+            Console.WriteLine("I know why you have come, and perhaps I welcome it.\nI have haunted this house for centuries and " + 
                 "I grow weary of the screams.\nI'll tell you exactly how to vanquish me, but to win you must " +
                 "be courageous.\nI am not the only ghost you may encounter.\nIf you can find my relics, you will be able to " +
-                "exorcise my spirit.\nYou must find: My Grimoire, My Mother's necklace, A satchel of herbs and incense, Hecate's Statue, and finally The Urn holding my remains\n" +
+                "exorcise my spirit.\nYou must find:\nMy Grimoire, My Mother's necklace, A satchel of herbs and incense, Hecate's Statue,\nand finally the Urn holding my remains\n" +
                 $"Good Luck {player.Name}");
             Console.WriteLine();
             Console.WriteLine();
@@ -184,7 +184,7 @@
 
                         } else
                         {
-                            return;
+                            break;
                         }
                     }
                 }
@@ -194,13 +194,13 @@
         {
             Console.WriteLine();
             player.Sanity -= 10;
-            Console.WriteLine("****************************************\nBefore you can make it to the room, an apparition appears before you.\nIt screams a blood curdling scream that you feel echo through your bones.\n" +
+            Console.WriteLine("****************************************\nBefore you can make it to the room, an apparition appears before you.\nIt screams a blood curdling wail that you feel echo through your bones.\n" +
                 $"Then it disappears.\nYour current sanity level is {player.Sanity}\n****************************************");
             Console.WriteLine();
             Console.WriteLine();
             if (player.Sanity  <= 0)
             {
-                Console.WriteLine($"Run ragged from the terrifying house, you slip into madness, \nspending the rest of your days, \nboth living and dead, \nrocking back and forth on the floor\nFarewell, {player.Name}");
+                Console.WriteLine($"Run ragged from the terrifying house, you slip into madness,\nspending the rest of your days, \nboth living and dead, \nrocking back and forth on the floor\nFarewell, {player.Name}");
                 player.GameInProgress = false;
                 return;
             }

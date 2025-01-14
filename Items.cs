@@ -2,10 +2,10 @@
 {
     public class Items
     {
-        public string Name {  get; set; }
-        public string UseItemString { get; set; }
-        public int KeyID { get; set; }
-        public bool IsRelic { get; set; }
+        public readonly string Name;
+        public readonly string UseItemString;
+        public readonly int KeyID;
+        public readonly bool IsRelic;
 
         public Items(string name, string useItemString, int keyID, bool isRelic)
         {

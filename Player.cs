@@ -2,7 +2,7 @@
 {
     public class Player
     {
-        public string Name {  get; set; }
+        public readonly string Name;
         public Items[] Inventory { get; set; }
         public int Sanity { get; set; }
         public int RelicCount { get; set; }

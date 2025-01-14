@@ -2,8 +2,6 @@
 
 namespace Haunted_House
 {
-    //      In retrospect I think I should have made a main class of Room and a subclass of SecretRoom, but before I realized that
-    //      I had already made too much progress into the system I had worked out. 
     public class Rooms
     {
         public string Name { get; set; }
