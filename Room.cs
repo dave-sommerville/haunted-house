@@ -2,15 +2,15 @@
 
 namespace Haunted_House
 {
-    public class Rooms
+    public class Room
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public string[] Contents { get; set; }
         public int KeyCode { get; set; }
-        public Rooms SecretRoom { get; set; }
+        public Room SecretRoom { get; set; }
 
-        public Rooms(string name, string description, string[] contents, int keyCode, Rooms secretRoom)
+        public Room(string name, string description, string[] contents, int keyCode, Room secretRoom)
         {
             Name = name;
             Description = description;
@@ -23,14 +23,14 @@ namespace Haunted_House
             Console.WriteLine($"You approach the {Name}.\n{Description}");
         }
 
-        public Player Search(Dictionary<string, Items> itemsList, Player player)
+        public Player Search(Dictionary<string, Item> itemsList, Player player)
         {
             if (Contents != null)
             {
                 for (int i = 0; i < Contents.Length; i++)
                 {
                     string itemName = Contents[i];
-                    Items item = itemsList[itemName];
+                    Item item = itemsList[itemName];
                     AddItemToInventory(item, player);
                     if (item.IsRelic)
                     {
@@ -50,7 +50,7 @@ namespace Haunted_House
 
 
 
-        private void AddItemToInventory(Items item, Player player)
+        private void AddItemToInventory(Item item, Player player)
         {
             for (int i = 0; i < player.Inventory.Length; i++)
             {
@@ -67,7 +67,7 @@ namespace Haunted_House
             }
         }
 
-        private void HandleRelic(Items item, Player player)
+        private void HandleRelic(Item item, Player player)
         {
             player.RelicCount++;
             if (player.RelicCount >= 5)

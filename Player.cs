@@ -3,11 +3,11 @@
     public class Player
     {
         public readonly string Name;
-        public Items[] Inventory { get; set; }
+        public Item[] Inventory { get; set; }
         public int Sanity { get; set; }
         public int RelicCount { get; set; }
         public bool GameInProgress { get; set; }
-        public Player(string name, Items[] inventory, int sanity, int relicCount, bool gameInProgress)
+        public Player(string name, Item[] inventory, int sanity, int relicCount, bool gameInProgress)
         {
             Name = name;
             Inventory = inventory;
@@ -41,7 +41,7 @@
                 }
             }
         }
-        public bool UseItem(int selectedItem, Rooms chosenRoom)
+        public bool UseItem(int selectedItem, Room chosenRoom)
         {
             if (Inventory[selectedItem] != null)
             {
