@@ -2,21 +2,21 @@
 
 namespace Haunted_House
 {
+    //      In retrospect I think I should have made a main class of Room and a subclass of SecretRoom, but before I realized that
+    //      I had already made too much progress into the system I had worked out. 
     public class Rooms
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public string[] Contents { get; set; }
-        public bool IsComplete { get; set; }
         public int KeyCode { get; set; }
         public Rooms SecretRoom { get; set; }
 
-        public Rooms(string name, string description, string[] contents, bool isComplete, int keyCode, Rooms secretRoom)
+        public Rooms(string name, string description, string[] contents, int keyCode, Rooms secretRoom)
         {
             Name = name;
             Description = description;
             Contents = contents;
-            IsComplete = isComplete;
             KeyCode = keyCode;
             SecretRoom = secretRoom;
         }
@@ -28,40 +28,56 @@ namespace Haunted_House
         public Player Search(Dictionary<string, Items> itemsList, Player player)
         {
             if (Contents != null)
-            { 
+            {
                 for (int i = 0; i < Contents.Length; i++)
                 {
                     string itemName = Contents[i];
                     Items item = itemsList[itemName];
-                    for (int j = 0; j < player.Inventory.Length; j++)
+                    AddItemToInventory(item, player);
+                    if (item.IsRelic)
                     {
-                        if (player.Inventory[j] != null)
-                        {
-                            continue;
-                        } else if (player.Inventory[j] == null) {
-                            player.Inventory[j] = item;
-                            Console.WriteLine($"{item.Name} added to player inventory");
-                            Console.WriteLine("1) Search 2) Leave");
-                            if (item.IsRelic)
-                            {
-                                player.RelicCount++;
-                                if (player.RelicCount >= 5)
-                                {
-                                    Console.WriteLine($"Great job, {player.Name}! You have bravely located all my relics and at last I am a peace.");
-                                    player.GameInProgress = false;
-                                }
-                            }
-                            break;
-                        }
+                        HandleRelic(item, player);
                     }
+                    Console.WriteLine("1) Search 2) Leave");
+                    break;
                 }
                 Contents = null;
-            } else if (Contents == null){
+            }
+            else
+            {
                 Console.WriteLine("Nothing to be found here!");
             }
             return player;
         }
 
-    }
 
+
+        private void AddItemToInventory(Items item, Player player)
+        {
+            for (int i = 0; i < player.Inventory.Length; i++)
+            {
+                if (player.Inventory[i] != null)
+                {
+                    continue;
+                }
+                else if (player.Inventory[i] == null)
+                {
+                    player.Inventory[i] = item;
+                    Console.WriteLine($"{item.Name} added to player inventory");
+                    break;
+                }
+            }
+        }
+
+        private void HandleRelic(Items item, Player player)
+        {
+            player.RelicCount++;
+            if (player.RelicCount >= 5)
+            {
+                Console.WriteLine($"Great job, {player.Name}! You have bravely located all my relics and at last I am a peace.");
+                player.GameInProgress = false;
+            }
+        }
+    }
 }
+
