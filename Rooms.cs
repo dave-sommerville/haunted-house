@@ -22,7 +22,7 @@ namespace Haunted_House
         }
         public void DescribeRoom()
         {
-            Console.WriteLine($"You make it to the {Name}.\n{Description}");
+            Console.WriteLine($"You approach the {Name}.\n{Description}");
         }
 
         public Player Search(Dictionary<string, Items> itemsList, Player player)
@@ -47,6 +47,7 @@ namespace Haunted_House
                                 if (player.RelicCount >= 5)
                                 {
                                     Console.WriteLine($"Great job, {player.Name}! You have bravely located all my relics and at last I am a peace.");
+                                    player.GameInProgress = false;
                                 }
                             }
                             break;

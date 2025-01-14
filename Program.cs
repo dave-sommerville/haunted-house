@@ -6,8 +6,9 @@
         {
                  // DECLARATIONS 
                 //  SECRET ROOMS 
-            Rooms ballRoomBonus = new Rooms("Painting in the Ballroom", "You inspect behind the large painting in the ballroom, revealing a wall safe.\n" +
-                "You cautiously input the code from the paper, which responds with a beep and a green light. The safe is now open.", new string[] { "Necklace" }, false, 0, null);
+            Rooms ballRoomBonus = new Rooms("Painting in the Ballroom", "You see the painting is a little crooked.\nYou pull it away from the wall, revealing a wall safe.\n" +
+                "You cautiously input the code from the paper, which responds with a beep and a green light.\nThe safe is now open.\n" + 
+                "1) Search 2) Leave", new string[] { "Necklace" }, false, 0, null);
             Rooms studyRoomBonus = new Rooms("Study (unlocked)", "The old key clicks into place and the doorknob turn revealing the study.\nIt is a claustrophobic room filled with the scent of leather and tobacco.\n" +
                 "A large desk, its surface cluttered with yellowed papers and broken quills,\nAn oil lamp flickers faintly, though no one is there to light it,\n" +
                 "and the faint scratching of an invisible pen seems to echo from the walls.\n" +
@@ -43,13 +44,14 @@
                     "with an underlying metallic tang.\nOn the wall, a portrait hangs crooked, its once-dignified subject now defaced,\neyes gouged out, leaving empty, accusing hollows.\nAn oppressive silence lingers," + 
                     "broken only by the faint echo of muffled whispers\nthat seem to emanate from nowhere and everywhere at once.\n1) Search Room      2) Leave Room", 
                     new string[] { "Paper" }, false, 0, null),
-                new Rooms("Study", "The study is locked.\n" + 
+                new Rooms("Study (locked)", "The study is locked.\n" + 
                     "1) Search 2) Leave 3) Use Item", 
                     null, false, 00, studyRoomBonus),
                 new Rooms("Nursery", "The nursery, once a haven of innocence, now exudes an unsettling stillness.\nFaded pastel wallpaper peels from the walls, revealing dark stains beneath.\n" + 
                     "A shattered mobile dangles precariously over a decrepit crib,\nits remaining pieces tinkling faintly in unseen drafts.\nBroken toys litter the floor, their lifeless eyes seeming to follow every movement.\n" + 
                     "In the corner, a small rocking chair sways gently on its own,\ncreaking with an eerie rhythm that matches the faint, ghostly lullaby whispered by unseen voices.\nThe air is thick with a cloying, sweet smell,\n" + 
                     "as though time has trapped the scent of old milk and powder beneath decades of decay.\n" + 
+                    "You see the ghost of a small child, softly weeping in the corner.\nShe mumbles over and over again\n\"My doll, my doll, oh where is my doll\"" +
                     "1) Search Room      2) Leave Room      3) Use Item", 
                     null, false, 22, ghostBonus),
                 new Rooms("Guest Room", "The guest room is cold and unwelcoming\nwith wallpaper peeling from the walls in grotesque patterns.\nA wardrobe dominates one corner, its doors slightly ajar,\n" + 
@@ -77,7 +79,7 @@
             Items satchel = new Items("Small satchel with punget contents", null, 5, true);
             Items smallStatue = new Items("Small statute of a Grecian woman", null, 6, true);
             Items urn = new Items("Finely deocrated urn", null, 7, true);
-            Items herring = new Items("A smell red fish", null, 88, false);
+            Items herring = new Items("A smelly red fish", null, 88, false);
 
             Dictionary<string, Items> AllItems = new Dictionary<string, Items>
             {
@@ -91,11 +93,13 @@
                 { "Urn", urn },
                 { "Herring", herring }
             };
+
+            const int PLAYER_SANITY = 100;
             
             //      INTRODUCTION
             Console.WriteLine("Might we start with your name? (enter name in console)");
             string playerName = Console.ReadLine();
-            Player player = new Player(playerName, new Items[10], 100, 0);
+            Player player = new Player(playerName, new Items[10], PLAYER_SANITY, 0, true);
             Console.WriteLine($"Hello, {player.Name}\n");
             Console.WriteLine();
             Console.WriteLine("I know why you have come, and perhaps I welcome it. I have haunted this house for centuries." + 
@@ -108,13 +112,13 @@
             Console.WriteLine();
             
             //      MAIN MENU
-            while (true)
+            while (player.GameInProgress)
             {
                 Random rand = new Random();
                 int choice = PrintMenu();
                 Rooms chosenRoom = house[choice - 1];
                 if (rand.Next(100) > 50) {
-                    Haunt(player); 
+                    Haunt(player);
                 }
                 if (choice > 0 && choice <= house.Length)
                 {
@@ -129,7 +133,7 @@
                     if (actionChoice == 1)
                     {
                         chosenRoom.Search(AllItems, player);
-                        Console.WriteLine("1) Done 2) Leave Room");
+                        Console.WriteLine("        2) Leave Room");
                     } else if (actionChoice == 2) {
                         break;
                     } else if (actionChoice == 3)
@@ -186,14 +190,15 @@
         public static void Haunt(Player player)
         {
             Console.WriteLine();
+            player.Sanity -= 10;
             Console.WriteLine("****************************************\nBefore you can make it to the room, an apparition appears before you.\nIt screams a blood curdling scream that you feel echo through your bones.\n" +
                 $"Then it disappears.\nYour current sanity level is {player.Sanity}\n****************************************");
             Console.WriteLine();
             Console.WriteLine();
-            player.Sanity -= 10;
             if (player.Sanity  <= 0)
             {
                 Console.WriteLine("Run ragged from the terrifying house, you slip into madness, \nspending the rest of your days, \nboth living and dead, \nrocking back and forth on the floor");
+                player.GameInProgress = false;
                 return;
             }
         }

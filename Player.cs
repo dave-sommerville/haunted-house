@@ -6,12 +6,14 @@
         public Items[] Inventory { get; set; }
         public int Sanity { get; set; }
         public int RelicCount { get; set; }
-        public Player(string name, Items[] inventory, int sanity, int relicCount)
+        public bool GameInProgress { get; set; }
+        public Player(string name, Items[] inventory, int sanity, int relicCount, bool gameInProgress)
         {
             Name = name;
             Inventory = inventory;
             Sanity = sanity;
             RelicCount = relicCount;
+            GameInProgress = gameInProgress;
         }
 
         public int PrintInventory()
