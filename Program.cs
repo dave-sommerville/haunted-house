@@ -51,7 +51,7 @@
                     "A shattered mobile dangles precariously over a decrepit crib,\nits remaining pieces tinkling faintly in unseen drafts.\nBroken toys litter the floor, their lifeless eyes seeming to follow every movement.\n" + 
                     "In the corner, a small rocking chair sways gently on its own,\ncreaking with an eerie rhythm that matches the faint, ghostly lullaby whispered by unseen voices.\nThe air is thick with a cloying, sweet smell,\n" + 
                     "as though time has trapped the scent of old milk and powder beneath decades of decay.\n" + 
-                    "You see the ghost of a small child, softly weeping in the corner.\nShe mumbles over and over again\n\"My doll, my doll, oh where is my doll\"" +
+                    "You see the ghost of a small child, softly weeping in the corner.\nShe mumbles over and over again\n\"My doll, my doll, oh where is my doll\"\n" +
                     "1) Search Room      2) Leave Room      3) Use Item", 
                     null, false, 22, ghostBonus),
                 new Rooms("Guest Room", "The guest room is cold and unwelcoming\nwith wallpaper peeling from the walls in grotesque patterns.\nA wardrobe dominates one corner, its doors slightly ajar,\n" + 
@@ -94,7 +94,7 @@
                 { "Herring", herring }
             };
 
-            const int PLAYER_SANITY = 100;
+            const int PLAYER_SANITY = 30;
             
             //      INTRODUCTION
             Console.WriteLine("Might we start with your name? (enter name in console)");
@@ -120,6 +120,10 @@
                 if (rand.Next(100) > 50) {
                     Haunt(player);
                 }
+                if (!player.GameInProgress)
+                {
+                    return;
+                }
                 if (choice > 0 && choice <= house.Length)
                 {
                     chosenRoom.DescribeRoom();
@@ -127,7 +131,7 @@
                 {
                     Console.WriteLine("Invalid choice. Please select again.");
                 }
-                while (true) {
+                while (player.GameInProgress) {
                     int actionChoice = PrintActionMenu();
           
                     if (actionChoice == 1)
@@ -140,7 +144,7 @@
                     {
                         if (chosenRoom.SecretRoom != null)
                         {
-                            while (true)
+                            while (player.GameInProgress)
                             {
                                 for (int i = 0; i < player.Inventory.Length; i++)
                                 {
@@ -160,7 +164,7 @@
                                 if (canOpen)
                                 {
                                     chosenRoom.SecretRoom.DescribeRoom();
-                                    while (true)
+                                    while (player.GameInProgress)
                                     {
                                         int secretChoice = PrintActionMenu();
                                         if (secretChoice == 1)

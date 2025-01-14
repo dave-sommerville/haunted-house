@@ -41,6 +41,7 @@ namespace Haunted_House
                         } else if (player.Inventory[j] == null) {
                             player.Inventory[j] = item;
                             Console.WriteLine($"{item.Name} added to player inventory");
+                            Console.WriteLine("1) Search 2) Leave");
                             if (item.IsRelic)
                             {
                                 player.RelicCount++;
