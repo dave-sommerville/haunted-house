@@ -36,7 +36,7 @@
                     "its candles melting into grotesque shapes.\nA massive mirror on one wall reflects the room—but something about the reflection feels off,\n" +
                     "as if the figures seated at the table are waiting for you to join them.\n" +
                     "1) Search Room      2) Leave Room", 
-                    null, 0, null),
+                    new string[]{ "Satchel"}, 0, null),
                 new Room("Ballroom", "The ballroom is cavernous and eerily quiet, the only sound the creak of your footsteps on the parquet floor.\nA massive painting dominates one wall," +
                     "depicting a grand ball frozen in time,\nthe figures’ faces smudged or missing entirely.\nChandeliers above sway slightly, though the air is still, and the faint sound of music seems to hum from nowhere.\n" +
                     "1) Search Room      2) Leave Room      3) Use Item", 
@@ -68,7 +68,7 @@
                 new Room("Attic", "The attic is a labyrinth of forgotten relics cloaked in cobwebs.\nBroken furniture and crates filled with unidentifiable trinkets create looming shadows in the dim light from a single," + 
                     "flickering bulb.\nA decrepit rocking chair sways gently in one corner, as if disturbed by an unseen presence,\nand the faint whisper of a child’s laughter echoes just out of reach.\n" +
                     "1) Search Room      2) Leave Room", 
-                    new string[] { "Doll", "Satchel" }, 80, null)
+                    new string[] { "Doll"}, 80, null)
 
             };
 
